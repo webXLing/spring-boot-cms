@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.github.talelin.latticy.model.Banner;
 import io.github.talelin.latticy.model.BannerItem;
 import io.github.talelin.latticy.model.BitemImg;
@@ -10,7 +11,12 @@ import java.util.List;
 
 @Repository
 //@Mapper//指定这是一个操作数据库的mapper
-public interface TestMapper {
+public interface TestMapper  {
+    /**
+     *  查询所有banner
+     * @return
+     */
+    List<Banner> getBannerAll();
     /**
      * 根据id 查询banner
      * @return
@@ -55,4 +61,10 @@ public interface TestMapper {
                     many = @Many(select = "io.github.talelin.latticy.mapper.TestMapper.getBitemImg"))
     })
     List<BannerItem> getBannerItemFullimg(Long id);
+
+
+    /**
+     * 插入Banner
+     */
+    Long insetBaner(Banner banner);
 }

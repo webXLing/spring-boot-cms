@@ -18,6 +18,11 @@ public class TestServiceImpl {
         return testMapper.getBannerItemFull(id);
     }
 
+    public List<Banner> getAll(){
+        return testMapper.getBannerAll();
+    }
+
+
     public List<Banner> getTest(Long id){
         return testMapper.getBanner(id);
     }
@@ -27,6 +32,19 @@ public class TestServiceImpl {
 
     public List<BannerItem> getBannerItemFullimg(Long id){
         return testMapper.getBannerItemFullimg(id);
+    }
+
+    /**
+     * 返回 插入后对应的主键id
+     * @return
+     */
+    public Long inserBaner(){
+        Banner banner = new Banner();
+        banner.setImg("http://dasdas");
+        banner.setTitle("this is title");
+        banner.setName("this. is name ");
+        Long aLong = testMapper.insetBaner(banner);
+        return banner.getId();
     }
 
 }

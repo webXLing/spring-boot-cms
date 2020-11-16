@@ -17,6 +17,11 @@ public class TestController {
     @Autowired
     private TestServiceImpl testService;
 
+    @GetMapping("/bannerall")
+    public List<Banner> getAll(){
+        List<Banner> test = testService.getAll();
+        return test;
+    }
 
     @GetMapping("/banner")
     public List<Banner> getTest(@RequestParam("id") Long id){
@@ -41,6 +46,16 @@ public class TestController {
     public List<BannerItem> getBannerItemFullimg(@RequestParam("id") Long id){
         List<BannerItem> test = testService.getBannerItemFullimg(id);
         return test;
+    }
+
+
+    /**
+     * 插入banner
+     */
+    @GetMapping("/insetBaner")
+    public Long insetBaner(){
+        Long aLong = testService.inserBaner();
+        return aLong;
     }
 
 

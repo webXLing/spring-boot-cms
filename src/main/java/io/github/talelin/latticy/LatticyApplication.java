@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author pedro@TaleLin
  */
 @SpringBootApplication(scanBasePackages = {"io.github.talelin.latticy"})
+// 这是一个数组 可以写多个
 @MapperScan(basePackages = {"io.github.talelin.latticy.mapper"})
 @RestController
 public class LatticyApplication {
