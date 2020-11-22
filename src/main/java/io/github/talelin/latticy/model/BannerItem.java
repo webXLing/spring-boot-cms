@@ -23,10 +23,10 @@ public class BannerItem implements Serializable {
     /**
      * bannerItem 和banner 是一对一的关系 BannerItem表中没有这个字段
      */
-    private Banner myBanner;
+//    private Banner myBanner;
 
     /**
      * bannerItem 和bitem_img 是一对多的关系 BannerItem表中没有这个字段
      */
-    private List<BitemImg> myImgs;
+//    private List<BitemImg> myImgs;
 }
