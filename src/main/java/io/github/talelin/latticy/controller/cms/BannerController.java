@@ -5,9 +5,11 @@ import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.banner.UpdateBanner;
 import io.github.talelin.latticy.model.Banner;
 import io.github.talelin.latticy.service.impl.BannerService;
+import io.github.talelin.latticy.vo.CreatedVO;
 import io.github.talelin.latticy.vo.DeletedVO;
 import io.github.talelin.latticy.vo.PageResponseVO;
 import io.github.talelin.latticy.vo.UpdatedVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,17 @@ public class BannerController {
 
     @Autowired
     private BannerService bannerService;
+
+
+    /**
+     * 新增 banner
+     */
+    public CreatedVO createBanner(@RequestBody @Validated UpdateBanner updateBanner){
+        Banner banner = new Banner();
+        BeanUtils.copyProperties(updateBanner,banner);
+        this.bannerService.save(banner);
+        return new CreatedVO();
+    }
 
     /**
      * 通过id 获取banner 并且含有banneritem
