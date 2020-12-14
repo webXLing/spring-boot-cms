@@ -47,7 +47,7 @@ public class SpuDTO {
 //    private String spuThemeImg;
     private String forThemeImg;
 
-    private List<String> specKeyIdList;
+    private List<Integer> specKeyIdList;
     private List<String> spuImgList;
 
     /**

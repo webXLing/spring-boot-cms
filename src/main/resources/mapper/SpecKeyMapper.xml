@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.talelin.latticy.mapper.SpecKeyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.github.talelin.latticy.model.SpecKeyDO">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_time" property="deleteTime" />
+        <result column="name" property="name" />
+        <result column="unit" property="unit" />
+        <result column="standard" property="standard" />
+        <result column="description" property="description" />
+    </resultMap>
+
+
+    <select id="getBySpu" resultType="io.github.talelin.latticy.model.SpecKeyDO">
+        SELECT sk2.*
+        FROM spu_key  sk1
+            JOIN spec_key sk2 ON sk1.spec_key_id = sk2.id
+        WHERE sk1.spu_id=#{id} and sk2.delete_time is null
+    </select>
+
+</mapper>

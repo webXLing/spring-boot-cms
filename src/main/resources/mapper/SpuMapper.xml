@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.talelin.latticy.mapper.SpuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="io.github.talelin.latticy.model.SpuDO">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="delete_time" property="deleteTime" />
+        <result column="title" property="title" />
+        <result column="subtitle" property="subtitle" />
+        <result column="category_id" property="categoryId" />
+        <result column="root_category_id" property="rootCategoryId" />
+        <result column="online" property="online" />
+        <result column="price" property="price" />
+        <result column="sketch_spec_id" property="sketchSpecId" />
+        <result column="default_sku_id" property="defaultSkuId" />
+        <result column="img" property="img" />
+        <result column="discount_price" property="discountPrice" />
+        <result column="description" property="description" />
+        <result column="tags" property="tags" />
+        <result column="is_test" property="isTest" />
+        <result column="spu_theme_img" property="spuThemeImg" />
+        <result column="for_theme_img" property="forThemeImg" />
+    </resultMap>
+
+<!--    /**-->
+<!--    * 关联 category-->
+<!--    */-->
+<!--    private String categoryName;-->
+<!--    /**-->
+<!--    * 某种规格可以直接附加单品图片  可视规格名-->
+<!--    * 关联 spec_key-->
+<!--    */-->
+<!--    private String sketchSpecName;-->
+<!--    ofType 内容类型-->
+<!--    extends="BaseResultMap" 可以继承-->
+    <resultMap autoMapping="true" id="myDetail" type="io.github.talelin.latticy.model.SpuDetailDO" extends="BaseResultMap">
+        <id column="id" property="id" />
+        <collection property="spuImgList" ofType="java.lang.String">
+            <constructor>
+                <arg column="sou_img"></arg>
+            </constructor>
+        </collection>
+        <collection property="detailImgs" ofType="java.lang.String">
+            <constructor>
+                <arg column="sdi_img"></arg>
+            </constructor>
+        </collection>
+    </resultMap>
+    <!-- 查询完整的spu-->
+    <!-- resultType 全路径 io.github.talelin.latticy.model.SpuDetailDO-->
+    <select id="getDetail" resultMap="myDetail">
+        SELECT
+            s.*,
+            sku.title as default_sku_title,
+            category.name as category_name,
+            sk.name as sketch_spec_name,
+            si.img as sou_img,
+            sdi.img as sdi_img
+        FROM spu s
+            JOIN sku on s.default_sku_id = sku.id
+            JOIN category on s.category_id = category.id
+            JOIN spec_key sk on s.sketch_spec_id = sk.id
+            JOIN spu_img si ON s.id = si.spu_id
+            JOIN spu_detail_img sdi ON s.id = sdi.spu_id
+        where s.id=#{id}
+            and s.delete_time is NULL
+    </select>
+
+</mapper>
